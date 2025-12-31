@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SmartAgent-RAG</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+
+<body>
+  <header class="topbar">
+    <div class="topbar__left">
+      <div class="brand">
+        <span class="brand__emoji" aria-hidden="true">🧠</span>
+        <div class="brand__text">
+          <div class="brand__title">SmartAgent-RAG</div>
+          <div class="brand__subtitle">פותח ע"י עידן סולימן</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="topbar__right">
+      <div class="tabs">
+        <button id="tabChat" class="tab tab--active" type="button">צ׳אט</button>
+        <button id="tabDev" class="tab" type="button">אימון המודל</button>
+        <button id="tabSettings" class="tab" type="button">הגדרות</button>
+      </div>
+      <span class="pill" id="kbStatus">KB: ...</span>
+    </div>
+  </header>
+
+  <main class="page">
+
+    <section id="viewChat">
+      <div class="chat-page-title">הצ׳אט</div>
+      <section class="chat">
+        <div id="chatList" class="chat__list"></div>
+        <section class="composer">
+          <!-- Ad-Hoc File Preview -->
+          <div id="filePreviewArea" class="hidden"
+            style="background:rgba(0,0,0,0.05); padding:8px; border-radius:8px; margin-bottom:8px; display:flex; align-items:center; justify-content:space-between;">
+            <span id="attachedFileName" style="font-size:0.9rem; font-weight:500;"></span>
+            <button id="removeFileBtn" type="button"
+              style="background:none; border:none; cursor:pointer; font-size:1.2rem;">&times;</button>
+          </div>
+
+          <div class="composer__row" style="display: flex; align-items: center; gap: 8px;">
+            <input type="file" id="adhocFileInput" style="display:none;" accept=".pdf,.docx,.doc,.txt" />
+            <button id="attachFileBtn" class="btn btn--ghost" type="button" style="padding: 0 10px; font-size: 1.5rem;"
+              title="צרף קובץ לשיחה זו בלבד">+</button>
+
+            <textarea id="messageInput" class="input" rows="1" style="flex:1;"
+              placeholder="שאל את הצ׳אט... (Enter לשליחה, Shift+Enter לשורה חדשה)"></textarea>
+          </div>
+
+          <div class="composer__controls">
+            <div class="composer__left-controls">
+              <button id="clearBtn" class="btn btn--ghost" type="button">נקה</button>
+              <select id="mainModeSelect" class="select-input" style="width: auto; min-width: 200px;">
+                <option value="gpt-5.2">GPT-5.2</option>
+                <option value="gpt-4o">GPT-4o</option>
+                <option value="search">חיפוש מקורות</option>
+              </select>
+            </div>
+            <button id="mainSendBtn" class="btn btn--primary" type="button">שלח</button>
+          </div>
+
+          <div class="composer__hint">
+            חיפוש חכם במאגר האישי שלך - מאובטח ואישי
+          </div>
+        </section>
+      </section>
+    </section>
+
+    <section id="viewDev" class="hidden">
+      <section class="dev">
+        <div class="dev__header">
+          <div>
+            <div class="h1">אימון המודל</div>
+            <div class="muted">גישה מוגנת. כאן ניתן לבנות מחדש צ׳אנקים/וקטורים ולצפות בהתקדמות.</div>
+          </div>
+        </div>
+
+        <div class="dev__card">
+          <div class="dev__title">כניסת מפתח</div>
+          <div class="dev__row">
+            <input id="adminCodeInput" class="input" type="password" placeholder="קוד (1111)" />
+            <button id="adminUnlockBtn" class="btn btn--primary" type="button">כניסה</button>
+            <span id="adminState" class="dev__muted">לא מחובר</span>
+          </div>
+        </div>
+
+        <div id="devPanels" class="dev__grid hidden">
+          <div class="dev__card">
+            <div class="dev__title">בניית צ׳אנקים (Index)</div>
+            <div class="dev__row">
+              <button id="reindexBtn" class="btn btn--primary" type="button">בנה מחדש צ׳אנקים</button>
+              <button id="refreshIndexBtn" class="btn" type="button">רענן סטטוס</button>
+            </div>
+            <div class="progress">
+              <div class="progress__bar" id="indexProg"></div>
+            </div>
+            <div class="kpis" id="indexKpis">—</div>
+            <pre id="indexStatusBox" class="dev__pre">...</pre>
+          </div>
+
+          <div class="dev__card">
+            <div class="dev__title">וקטורים (Embeddings)</div>
+            <div class="dev__row">
+              <button id="reembedBtn" class="btn btn--primary" type="button">בנה מחדש וקטורים</button>
+              <button id="refreshEmbedBtn" class="btn" type="button">רענן סטטוס</button>
+            </div>
+            <div class="progress">
+              <div class="progress__bar" id="embedProg"></div>
+            </div>
+            <div class="kpis" id="embedKpis">—</div>
+            <pre id="embedStatusBox" class="dev__pre">...</pre>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section id="viewSettings" class="hidden">
+      <section class="dev">
+        <div class="dev__header">
+          <div class="h1">הגדרות מערכת</div>
+          <div class="muted">ניהול מפתחות, פרומפטים ומילות מפתח.</div>
+        </div>
+
+        <div id="settingsLockMsg" class="dev__card" style="text-align: center; padding: 40px;">
+          <div style="font-size: 1.2rem;">🔒 גישה מוגבלת</div>
+          <div class="muted">יש להתחבר עם קוד מפתח בלשונית 'מפתח' כדי לערוך הגדרות.</div>
+        </div>
+
+        <div id="settingsPanels" class="hidden">
+          <div class="dev__card" style="margin-bottom: 20px;">
+            <div class="dev__title">מפתחות API</div>
+            <div class="muted" style="margin-bottom: 15px;">השדות מאובטחים ונשמרים אך ורק במחשבך בקובץ מאובטח.</div>
+            <div style="display: grid; gap: 15px;">
+              <div>
+                <label class="kpi-label" style="display:block; margin-bottom:5px;">AI-OpenAI</label>
+                <input id="cfgOpenAI" class="input" type="password" placeholder="sk-..." />
+              </div>
+
+            </div>
+          </div>
+
+          <div class="dev__card" style="margin-bottom: 20px;">
+            <div class="dev__title">הנחיות מערכת (System Prompt)</div>
+            <div class="muted" style="margin-bottom: 10px;">כאן מגדירים את ה"אישיות" של הבוט ואת חוקי המענה שלו.</div>
+            <textarea id="cfgPrompt" class="input" style="height: 250px; line-height: 1.6; font-family: monospace;"
+              placeholder="טוען..."></textarea>
+          </div>
+
+          <div class="dev__card" style="margin-bottom: 20px;">
+            <div class="dev__title">מילות מפתח ומושגים חשובים</div>
+            <div class="muted" style="margin-bottom: 10px;">רשימת מושגים (מופרדת בפסיקים אסור לשים גרשיים!) שיקבלו
+              עדיפות בחיפוש.</div>
+            <textarea id="cfgKeywords" class="input" style="height: 100px;" placeholder="טוען..."></textarea>
+          </div>
+
+          <div style="text-align: left; margin-top: 20px; margin-bottom: 50px;">
+            <button id="saveConfigBtn" class="btn btn--primary" style="padding: 0 40px; font-size: 1rem;">שמור
+              הגדרות</button>
+          </div>
+        </div>
+      </section>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <span class="muted">SmartAgent-RAG • Local RAG console</span>
+  </footer>
+
+  <script src="/static/app.js?v=2"></script>
+</body>
+
+</html>

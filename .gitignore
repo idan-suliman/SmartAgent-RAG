@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+.venv/
+venv/
+ENV/
+
+# Environment Variables
+.env
+.env.local
+
+# IDEs
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Project Data (Ignore content, keep structure)
+data/INBOX/*
+!data/INBOX/.gitkeep
+
+data/INDEX/*
+!data/INDEX/.gitkeep
+
+# Ignore root data folder content if necessary, but keep it if it contains structure
+# We'll rely on the specific INBOX/INDEX ignores above. 
+# If there are other files in data/ like 'chunks.jsonl' or 'embeddings.npy', ignore them:
+data/*.jsonl
+data/*.npy
+data/*.json
+data/*.pkl
+
+# Logs
+*.log
+*.sqlite
+*.db
+
+# Configuration Prompts (Ensure these are tracked!)
+!data/system_prompt.txt
+!data/rewrite_prompt.txt
+!data/no_results_prompt.txt
+!data/fallback_prompt.txt
+
+# Temporary Scripts
+verify_*.py
+analyze_*.py
+visualize_*.py
+debug_*.py
+gen_*.py
+architecture_diagram
+
+# Specific Documents
+Inspect Rich Documents with Gemini Multimodality and Multimodal RAG.DOCX

@@ -1,0 +1,15 @@
+fastapi
+uvicorn
+openai
+python-dotenv
+pydantic
+pydantic-settings
+numpy
+pymupdf
+python-docx
+pillow
+pytesseract
+opencv-python
+python-multipart
+pywin32
+rank_bm25
