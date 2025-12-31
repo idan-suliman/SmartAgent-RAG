@@ -5,7 +5,6 @@ SmartAgent-RAG is a professional **Local RAG (Retrieval-Augmented Generation)** 
 **Version:** 2.0.0 (Legal Tech Edition)
 **Developed by:** Idan Suliman 
 
-
 ---
 
 ## 🚀 Key Features
@@ -18,55 +17,52 @@ SmartAgent-RAG is a professional **Local RAG (Retrieval-Augmented Generation)** 
 
 ---
 
-## 🛠️ Prerequisites
+## 📦 Installation & Usage
 
-*   **Python 3.10+** (Recommended)
-*   **Node.js** (Optional, only if modifying frontend build tools)
-*   An active **OpenAI API Key** (Required for Embeddings & Chat)
+Choose the method that works best for you.
 
----
+### Option 1: Standalone Windows App (Quick Start)
+*No Python installation required.*
 
-## 📦 Installation & Setup
+1.  **Setup Files**: Download the executable (`.exe`). **Crucial**: Ensure your `.env` file is placed in the same folder as the executable.
+2.  **Launch**: Double-click `SmartAgentRAG.exe` to open the application.
+3.  **Activate System (Required)**:
+    *   Go to the **Model Training** tab.
+    *   In the **Key** field (side panel), enter the code: `1111`.
+4.  **Configure API**: Go to the **Settings** tab and paste your OpenAI API Key.
+5.  **Add Data**: Place your document files into the `INBOX` folder.
+6.  **Process Data**:
+    *   On the web interface, click **Generate Chunks**.
+    *   Immediately after, click **Generate Vectors**.
+7.  **Success!**: The model is now fully operational. Good luck!
 
-1.  **Clone the Repository**
+### Option 2: Run from Source (For Developers)
+
+**Prerequisites**:
+*   **Python 3.10+**
+*   **OpenAI API Key**
+
+1.  **Clone & Setup**:
     ```bash
     git clone https://github.com/your-username/SmartAgent-RAG.git
     cd SmartAgent-RAG
-    ```
-
-2.  **Create a Virtual Environment**
-    ```bash
+    
     python -m venv .venv
-    # Windows:
-    .venv\Scripts\activate
-    # Mac/Linux:
-    source .venv/bin/activate
-    ```
-
-3.  **Install Dependencies**
-    ```bash
+    # Windows: .venv\Scripts\activate
+    # Mac/Linux: source .venv/bin/activate
+    
     pip install -r requirements.txt
     ```
 
-4.  **Configure API Keys**
+2.  **Configure API Key**:
     *   Create a `.env` file in the root directory.
-    *   Add your OpenAI API Key:
-        ```ini
-        OPENAI_API_KEY=sk-your-key-here...
-        ```
-    *   *Alternatively*, you can configure this later via the "Settings" tab in the application UI (Password: `1111`).
+    *   Add `OPENAI_API_KEY=sk-your-key-here`.
 
----
-
-## 🏃‍♂️ Running the Application
-
-1.  **Start the Backend Server**
+3.  **Run**:
     ```bash
     uvicorn backend.app.main:app --reload --host 127.0.0.1 --port 8000
     ```
-
-2.  **Access the Interface**
-    *   Open your browser and navigate to: `http://localhost:8000`
+    Open `http://localhost:8000` in your browser.
 
 ---
 
