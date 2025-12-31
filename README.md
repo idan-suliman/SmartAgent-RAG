@@ -1,4 +1,4 @@
-# SmartAgent-RAG: Advanced Legal AI Assistant
+# SmartAgent-RAG: Advanced AI Assistant
 
 SmartAgent-RAG is a professional **Local RAG (Retrieval-Augmented Generation)** system designed for the Legal Tech sector. It enables law firms and legal professionals to chat with their own document archives (PDF, DOCX, DOC) using advanced LLM capabilities (GPT-4o/GPT-5.2), securely and efficiently.
 
