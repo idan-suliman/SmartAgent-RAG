@@ -4,6 +4,9 @@ SmartAgent-RAG is a professional **Local RAG (Retrieval-Augmented Generation)** 
 
 **Developed by:** Idan Suliman 
 
+
+![Image](./Image.png)
+
 ---
 
 ## 🚀 Key Features
